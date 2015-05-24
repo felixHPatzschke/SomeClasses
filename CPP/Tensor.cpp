@@ -48,6 +48,44 @@ Tensor::~Tensor()
 {}
 
 
+Tensor Tensor::operator=(const Tensor& t)
+{
+	comp[0][0] = t.get(0,0);
+	comp[0][1] = t.get(0,1);
+	comp[0][2] = t.get(0,2);
+	comp[1][0] = t.get(1,0);
+	comp[1][1] = t.get(1,1);
+	comp[1][2] = t.get(1,2);
+	comp[2][0] = t.get(2,0);
+	comp[2][1] = t.get(2,1);
+	comp[2][2] = t.get(2,2);
+	return (*this);
+}
+
+
+Tensor Tensor::operator*(const double r)
+{
+	return Tensor(
+		r*comp[0][0], r*comp[0][1], r*comp[0][2], 
+		r*comp[1][0], r*comp[1][1], r*comp[1][2], 
+		r*comp[2][0], r*comp[2][1], r*comp[2][2]
+	);
+}
+
+void Tensor::operator*=(const double r)
+{
+	comp[0][0] *= r;
+	comp[0][1] *= r;
+	comp[0][2] *= r;
+	comp[1][0] *= r;
+	comp[1][1] *= r;
+	comp[1][2] *= r;
+	comp[2][0] *= r;
+	comp[2][1] *= r;
+	comp[2][2] *= r;
+}
+
+
 void Tensor::transpose()
 {
 	double fnord;
@@ -78,7 +116,23 @@ void Tensor::invert()
 	comp[2][2]*=-1;
 }
 
+Tensor Tensor::getTransposition()
+{
+	return Tensor(
+		comp[0][0], comp[1][0], comp[2][0],
+		comp[0][1], comp[1][1], comp[2][1],
+		comp[0][2], comp[1][2], comp[2][2]
+	);
+}
 
+Tensor Tensor::getInversion()
+{
+	return Tensor(
+		-comp[0][0], -comp[0][1], -comp[0][2], 
+		-comp[1][0], -comp[1][1], -comp[1][2], 
+		-comp[2][0], -comp[2][1], -comp[2][2]
+	);
+}
 
 
 std::string Tensor::debug(std::string msg)

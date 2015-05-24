@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include <string>
 
+
 namespace phs
 {
 
@@ -24,8 +25,16 @@ namespace phs
 			}
 		}
 	
+		Tensor operator=(const Tensor&);
+
+		Tensor operator*(const double);
+		void operator*=(const double);
+		
 		void transpose();
 		void invert();
+
+		Tensor getInversion();
+		Tensor getTransposition();
 
 		~Tensor();
 
