@@ -1,5 +1,5 @@
 #include "Vector.h"
-#include "Tensor.h"
+//#include "Tensor.h"
 #include <cmath>
 #include <sstream>
 
@@ -104,10 +104,6 @@ void Vector::operator*=(const double r)
 
 void Vector::operator*=(const Tensor& t)
 {
-	Vector a,b,c;
-	a = Vector(t.get(0,0), t.get(0,1), t.get(0,2));
-	b = Vector(t.get(1,0), t.get(1,1), t.get(1,2));
-	c = Vector(t.get(2,0), t.get(2,1), t.get(2,2));
 	Vector res = Vector(
 		(t.get(0,0)*comp[0] + t.get(0,1)*comp[1] + t.get(0,2)*comp[2]),
 		(t.get(1,0)*comp[0] + t.get(1,1)*comp[1] + t.get(1,2)*comp[2]),
@@ -151,10 +147,6 @@ double Vector::operator*(const Vector& v)
 
 Vector Vector::operator*(const Tensor& t)
 {
-	Vector a,b,c;
-	a = Vector(t.get(0,0), t.get(0,1), t.get(0,2));
-	b = Vector(t.get(1,0), t.get(1,1), t.get(1,2));
-	c = Vector(t.get(2,0), t.get(2,1), t.get(2,2));
 	return Vector(
 		(t.get(0,0)*comp[0] + t.get(0,1)*comp[1] + t.get(0,2)*comp[2]),
 		(t.get(1,0)*comp[0] + t.get(1,1)*comp[1] + t.get(1,2)*comp[2]),
@@ -254,8 +246,8 @@ bool Vector::operator==(const Vector& v)
 	return (comp[0]==v.getX() && comp[1]==v.getY() && comp[2]==v.getZ());
 }
 
-bool Vector::approaches(const Vector& v, double d)
+bool Vector::approaches(const Vector& v, double dq)
 {
-	return ((*this)-v).absSqr()<=d;
+	return ((*this)-v).absSqr()<=dq;
 }
 
