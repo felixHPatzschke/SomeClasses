@@ -6,7 +6,6 @@ import java.io.PrintStream;
 
 /**
  * @author Felix H. Patzschke
- * A Java class that pretty much sums up the mathematical Object known as "Vector".
  */
 public class Vector {
     
