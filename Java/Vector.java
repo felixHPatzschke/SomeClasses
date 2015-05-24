@@ -2,14 +2,7 @@
 insert package here
 */
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import java.io.PrintStream;
-import subido.math.Vector2D;
 
 /**
  * @author Felix H. Patzschke

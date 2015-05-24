@@ -1,9 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package subido.glUtil;
+insert package here
+*/
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -12,8 +9,7 @@ import subido.math.*;
 import subido.Keys;
 
 /**
- *
- * @author Felix Patzschke
+ * @author Felix H. Patzschke
  */
 public class Camera {
     
