@@ -14,13 +14,13 @@ namespace phs
 		dx *= (1.0/precision);
 		Vector integral = Vector(0,0,0);
 		Vector arg = a;
-		integral += integrand(arg)*(dx.abs());
+		integral += integrand(arg);
 		for(unsigned int c=1; c<precision; c++)
 		{
 			arg += dx;
-			integral += integrand(arg)*(dx.abs());
+			integral += integrand(arg);
 		}
-		return integral;
+		return (integral*(dx.abs()));
 	}
 
 	Vector integrate_eulerBackward(Vector(*integrand)(Vector), Vector a, Vector b, unsigned int precision)
@@ -32,23 +32,24 @@ namespace phs
 		for(unsigned int c=0; c<precision; c++)
 		{
 			arg += dx;
-			integral += integrand(arg)*(dx.abs());
+			integral += integrand(arg);
 		}
-		return integral;
+		return (integral*(dx.abs()));
 	}
 
 	Vector integrate_eulerTriangles(Vector(*integrand)(Vector), Vector a, Vector b, unsigned int precision)
 	{
-		Vector dx = b-a*(1.0/precision);
+		Vector dx = (b-a)*(1.0/precision);
 		Vector integral = Vector(0,0,0);
 		Vector arg = a;
-		integral += (integrand(arg)+(integrand(arg+dx)-integrand(arg))*0.5)*(dx.abs());
+		
+		integral += (integrand(arg)+integrand(arg+dx));
 		for(unsigned int c=1; c<precision; c++)
 		{
 			arg += dx;
-			integral += (integrand(arg)+(integrand(arg+dx)-integrand(arg))*0.5)*(dx.abs());
+			integral += (integrand(arg)+integrand(arg+dx));
 		}
-		return integral;
+		return (integral*0.5*dx.abs());
 	}
 
 	/**
@@ -60,9 +61,9 @@ namespace phs
 		double integral = 0;
 		for( double x=a; a<=x&&x<b-(dx/2.0) || a>=x&&x>b+(dx/2.0); x+=dx )
 		{
-			integral += dx*integrand(x);
+			integral += integrand(x);
 		}
-		return integral;
+		return (integral*dx);
 	}
 
 	double integrate_eulerBackward(double(*integrand)(double), double a, double b, unsigned int precision)
@@ -72,9 +73,9 @@ namespace phs
 		double integral = 0;
 		for( double x=a+dx; a+dx<=x&&x<b+(dx/2.0) || a+dx>=x&&x>b-(dx/2.0); x+=dx )
 		{
-			integral += dx*integrand(x);
+			integral += integrand(x);
 		}
-		return integral;
+		return (integral*dx);
 	}
 
 	double integrate_eulerTriangles(double(*integrand)(double), double a, double b, unsigned int precision)
@@ -83,31 +84,13 @@ namespace phs
 		double integral = 0;
 		double x = a;
 
-		integral += dx*(integrand(x)+((integrand(x+dx)-integrand(x))/2.0));
+		integral += (integrand(x)+integrand(x+dx));
 		for(unsigned int c=1; c<precision; c++)
 		{
 			x += dx;
-			integral += dx*(integrand(x)+((integrand(x+dx)-integrand(x))/2.0));
+			integral += (integrand(x)+integrand(x+dx));
 		}
-		/*
-		if(dx>0.0)
-		{
-			for( double x=a; x<b-(dx/2.0); x+=dx )
-			{
-				
-			}
-		}else if(dx<0.0)
-		{
-			for( double x=a; x>b+(dx/2.0); x+=dx )
-			{
-				integral += dx*(integrand(x)-((integrand(x+dx)-integrand(x))/2.0));
-			}
-		}else
-		{
-			//dx should really not be 0
-		}
-		*/
-		return integral;
+		return (0.5*integral*dx);
 	}
 
 }
